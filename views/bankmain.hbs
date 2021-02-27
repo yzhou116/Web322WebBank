@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Web Bank</title>
+      <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <script type="text/javascript" src="./js/bank.js"></script>
+  </head> 
+<body class="mainbody">
+
+<header>
+  <article>
+    {{>header}}
+    <form  method="POST" id="logout" action="/logout">
+      <section  id="box" onmouseover="Textswitch('Logout')" onmouseout="SwtichBack('{{{body.email}}}')"  >
+       
+        <button class="logoutbtn"  id="text_display" onclick="myLogout()">{{{body.email}}}</button>        
+      </section>   
+    </form>   
+    
+  </article>
+</header>
+   <nav class="accountinfo">
+  <form  method="POST" id="bankform" >
+     <h3>Menu</h3>
+     <input type="text"   name="accountnum"  placeholder="Account Number"/>
+     </br></br>
+    <input type="radio" id="balance" name="account" value="balance" >
+    <label for="balance"  >Balance</label>
+    </br></br>
+    <input type="radio" id="deposit" name="account" value="deposit">
+    <label for="deposit" >Deposit</label>
+    </br></br>
+     <input type="radio" id="withdrawal" name="account" value="withdrawal">
+    <label for="withdrawal" >Withdrawal</label>
+    </br></br>
+    <input type="radio" id="openaccount" name="account" value="openaccount">
+    <label for="withdrawal" >Open Account</label>
+      </br></br>
+      {{{body.account}}}
+         </br></br>
+    <button  id="btn" class="mainbtn" onclick="submitForm()" >Submit</button>  
+   
+   </form>
+   </nav>
+
+
+
+
+</body>
+</html>

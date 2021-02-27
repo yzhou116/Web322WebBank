@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+           
+            <title>My Web Bank</title>
+           
+            <link rel="stylesheet" type="text/css" href="./css/style.css" />
+        </head>
+        <body class="loginbody">
+            <article id="login-box">
+        <section class="form">
+             {{>header}}
+            <section class="item">
+                <form action="/check" method="post" id="loginForm">
+                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    <section >
+                        <label>Login Name</label>
+                        <input name="email" type="email" class="form-control" placeholder="Username">
+                    </section>
+                    <section >
+                         <i class="fa fa-key" aria-hidden="true"></i>
+                        <label>Password</label>
+                        <input name="password" type="password" class="form-control" placeholder="Password">
+                    </section>
+                    <section class="logintext">
+                      <label >{{{body}}}</label>
+                    </section>
+                    <button class="submitbtn"  type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </section>
+            <section class="tips"></section>
+        </section>
+    </article>
+        </body>
+    </html>

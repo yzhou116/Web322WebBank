@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Web Bank</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="./js/bank.js"></script>
+</head>
+<body>
+        {{>header}}
+    <h2>Balance</h2>
+
+    <article id="login-box">
+
+ <form method="POST" id="balanceform" >            
+              <div>
+        <span>Account number is {{body.number}}</span>
+        <br>
+        <span>Account Type is {{body.type}}</span>
+           <br>
+        <span>It has Total  ${{body.amount}}</span>
+           <br>
+           </div>
+          
+            </form>
+            <form action="/cancel" method="get">
+<input class="mainbtn" type="submit" value="Cancel">
+</form>
+    </article>
+   
+   
+    
+</body>
+</html>

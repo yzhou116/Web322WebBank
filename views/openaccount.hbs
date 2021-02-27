@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Web Bank</title>
+     <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <script type="text/javascript" src="./js/bank.js"></script>
+</head>
+<body>
+        {{>header}}
+    <h2>Open Account</h2>
+
+    <article id="login-box">
+  <form method="POST" action="/account" id="openaccountform" > 
+             
+               <input type="hidden" id="type"  name="type" >
+                  <input type="radio" onclick="Type('Chequing')">
+                  <label >Chequing</label>
+                  <br></br>
+
+                  <input type="radio" onclick="Type('Savings')">
+                  <label >Savings</label>
+                  </br></br>
+                  <input id="openbtn" disabled="true" class="mainbtn" type="submit" value="Submit"/>
+             
+                </form>
+
+                <section>
+<form action="/cancel" method="get">
+<input  class="mainbtn" type="submit" value="Cancel">
+</form>
+
+                </section>
+
+                
+    </article>
+       
+    
+</body>
+</html>

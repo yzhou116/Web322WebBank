@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta gttp-equiv="X-UA-Compatible" content="IE=edge"/>  
+      <title>Web Bank</title>
+      <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <script type="text/javascript" src="./js/bank.js"></script>
+    </head>
+    <body>
+      <script type="text/javascript"></script>
+       {{>header}}
+       <h2>Deposit</h2>
+      <section>
+        <article id="login-box">
+            <div class="webbank">
+                
+                
+                <div>           
+                  <div id="Deposit"  value= {{body.number}}>Account Number: {{body.number}}</div>  
+              </div>
+               <div>
+                 <span>Account Type is {{body.type}}</span>
+                </div>
+              <div>
+               <span>It has Total  ${{body.amount}}</span>
+              </div>
+              
+              <form method="POST" id="depositform">             
+                  <input type="text"  name="deposit" placeholder="Deposit"/></br></br>
+                  <input type= "hidden"  id="account"  name="account"/>
+              
+                     <section class="logintext">
+                      <label >{{body.text}}</label>
+                    </section>
+                  <button id="btn" class="btnSubmit" onclick="Deposit()">Submit</button>
+                
+                </form>
+                <form action="/cancel" method="get">
+<input class="mainbtn" type="submit" value="Cancel">
+</form>
+            </div>
+        </article>
+      </section>
+    </body>
+  </html>
