@@ -6,7 +6,7 @@ const path= require("path");
 const bodyParser= require("body-parser");
 const fs=require("fs");
 const e = require("express");
-const session = require('express-session');
+const session = require("client-sessions");
 
 const app= express();
 app.use(bodyParser.json());
@@ -21,7 +21,7 @@ app.engine("hbs", exphbs({
     }));
 app.set("view engine", "hbs");
 app.use(express.static('public'));
-app.use(session({
+/* app.use(session({
 
   secret: "weird sheep",
 
@@ -30,8 +30,18 @@ app.use(session({
   saveUninitialized: true,
 
   cookie: {user:"default",maxAge: 14*24*60*60*1000}
-
 }));
+ */
+app.use(session({
+
+  cookieName: 'session', 
+	secret: 'somecrazykeythatyoushouldkeephidden', 
+	duration: 60 * 60 * 1000, 
+	activeDuration: 1000 * 60 * 5,
+}));
+
+
+
 
 var email
 
@@ -55,9 +65,10 @@ app.post("/check", (req,res)=>{
    for(var key in content){
   
        if(email ===key && password===content[key]){
-        req.session.user = email;
+        req.session.user = email
+      //  req.session.user = email;
          userinfo.email = email
-         req.session.isLogin = true;
+      //   req.session.isLogin = true;
         res.render("bankmain",{body:userinfo});
         return;
        }else if(email==key && password != content[key]){
@@ -74,6 +85,7 @@ app.post("/check", (req,res)=>{
 });
 
 app.post("/bal",(req,res)=>{
+  console.log(req.session.user)
   if(req.session.user==null){
     res.render("login",{body:"Login First"})
     return
@@ -106,6 +118,7 @@ app.post("/bal",(req,res)=>{
    if(balanceinfo.type==null){
     userinfo.account = "Invalid Account"
     userinfo.email = req.session.user
+    console.log(req.session.user)
     res.render("bankmain",{body:userinfo})
     return
   }
@@ -377,7 +390,9 @@ app.get('/', (req,res)=>{
 });
 
 app.post("/logout",(req,res)=>{
-  req.session.destroy(function(){
+  req.session.user = null
+  res.redirect("/")
+/*   req.session.destroy(function(){
 
     res.clearCookie("user",{});
 
@@ -385,7 +400,7 @@ app.post("/logout",(req,res)=>{
 
     res.redirect("/");
 
-});
+}); */
    // res.render("login");
   });
 const server= app.listen(HTTP_PORT, ()=>{
