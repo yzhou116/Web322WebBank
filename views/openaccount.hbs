@@ -13,8 +13,35 @@
 
     <article id="login-box">
   <form method="POST" action="/account" id="openaccountform" > 
+     {{#if body.hasnone}}
+         {{!--   <input type="hidden" id="type"  name="type" > --}}
+                  <input name="type" checked="true" type="radio" id="cheque" value="Chequing">
+                  <label for="cheque" >Chequing</label>
+                  <br></br>
+
+                  <input  type="radio" name="type" id="saving" value="Savings">
+                  <label for="saving">Savings</label>
+                  </br></br>
+                    <button  id="btn" class="mainbtn" type="submit" >Submit</button>  
+        {{/if}}
+        {{#if body.hascheque}}
+           {{!--    <input type="hidden" id="type"  name="type" > --}}
+                  <input type="radio" checked="true" name="type" id="cheque" value="Chequing">
+                  <label for="cheque">Chequing</label>
+                  <br></br>
+                  {{!--  <input id="openbtn" disabled="true" class="mainbtn" type="submit" value="Submit"/> --}}
+                     <button  id="btn" class="mainbtn" type="submit" >Submit</button>  
+        {{/if}}
+          {{#if body.hassavings}}
+              {{!--   <input type="radio" onclick="Type('Savings')"> --}}
+                 <input type="radio" checked="true" name="type" id="saving" value="Savings">
+                  <label for="saving">Savings</label>
+                  </br></br>
+                {{!--   <input id="openbtn" disabled="true" class="mainbtn" type="submit" value="Submit"/> --}}
+                   <button  id="btn" class="mainbtn" type="submit" >Submit</button>  
+        {{/if}}
              
-               <input type="hidden" id="type"  name="type" >
+              {{!--  <input type="hidden" id="type"  name="type" >
                   <input type="radio" onclick="Type('Chequing')">
                   <label >Chequing</label>
                   <br></br>
@@ -22,7 +49,7 @@
                   <input type="radio" onclick="Type('Savings')">
                   <label >Savings</label>
                   </br></br>
-                  <input id="openbtn" disabled="true" class="mainbtn" type="submit" value="Submit"/>
+                  <input id="openbtn" disabled="true" class="mainbtn" type="submit" value="Submit"/> --}}
              
                 </form>
 

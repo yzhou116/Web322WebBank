@@ -22,9 +22,21 @@
   </article>
 </header>
    <nav class="accountinfo">
-  <form  method="POST" id="bankform" >
+  <form action="/checkchoice"  method="POST" id="bankform" >
      <h3>Menu</h3>
-     <input type="text"   name="accountnum"  placeholder="Account Number"/>
+    
+    <select  id="useraccountnum" name="accountNumber" >
+
+       {{#if body.cheque}}
+              <option value="{{{body.cheque}}}">{{{body.cheque}}}</option>
+        {{/if}}
+           {{!--      <option value="{{{body.cheque}}}">{{{body.cheque}}}</option> --}}
+             {{!--    <option value="{{{body.savings}}}">{{{body.savings}}}</option> --}}
+              {{#if body.savings}}
+               <option value="{{{body.savings}}}">{{{body.savings}}}</option>
+        {{/if}}
+            </select>
+   
      </br></br>
     <input type="radio" id="balance" name="account" value="balance" >
     <label for="balance"  >Balance</label>
@@ -35,13 +47,21 @@
      <input type="radio" id="withdrawal" name="account" value="withdrawal">
     <label for="withdrawal" >Withdrawal</label>
     </br></br>
-    <input type="radio" id="openaccount" checked="true" name="account" value="openaccount">
-    <label for="withdrawal" >Open Account</label>
+        {{#if body.hasboth}}
+            {{!--   <option value="{{{body.cheque}}}">{{{body.cheque}}}</option> --}}
+            <input type="radio" id="openaccount" disabled="true"  name="account" value="openaccount">
+             <label for="withdrawal"  >Open Account</label>
+        {{else}}
+             <input type="radio" id="openaccount" checked="true" name="account" value="openaccount">
+             <label for="withdrawal"  >Open Account</label>
+        {{/if}}
+ 
       </br></br>
-      {{{body.account}}}
+      {{{body.text}}}
          </br></br>
-    <button  id="btn" class="mainbtn" onclick="submitForm()" >Submit</button>  
-   
+  {{!--   <button  id="btn" class="mainbtn" onclick="sendtheForm()" >Submit</button>  
+    --}}
+     <button  id="btn" class="mainbtn" type="submit" >Submit</button>  
    </form>
    </nav>
 

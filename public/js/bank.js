@@ -15,10 +15,19 @@ function myLogout() {
   document.getElementById("logout").action = "/logout";
   
 }
-function submitForm(){
+/* function Dochange(){
+  var  myselect=document.getElementById("useraccountnum");
+  console.log(myselect)
+  var index=myselect.selectedIndex 
+  document.getElementById("accountnum").getAttribute("value") = myselect.options[index].value;
+} */
 
+
+/* function sendtheForm(){
+   console.log("get into submit")
   
   const radios = document.querySelectorAll('input[name="account"]')
+  console.log(radios)
   var selected;
   for (const ra of radios) {
       if (ra.checked) {
@@ -27,6 +36,9 @@ function submitForm(){
       }
   }
   console.log(selected)
+  var  myselect=document.getElementById("useraccountnum");
+  var index=myselect.selectedIndex 
+  document.getElementById("accountnum").getAttribute("value") = myselect.options[index].value;
  
   if (selected == "balance")
   {
@@ -40,18 +52,25 @@ function submitForm(){
   }
   
 }
+
+
+
+
+*/
+/* function Type(type) {
+
+ document.getElementById("openbtn").disabled=false;
+  document.getElementById("type").value = type;
+} */
 function Deposit(){
 
-    var account= document.getElementById("Deposit").getAttribute("value");
-        
-    document.getElementById("account").value= account;
-  
-    document.getElementById("depositform").action="/deposit";
-     
-  }
+  var account= document.getElementById("Deposit").getAttribute("value");
+      
+  document.getElementById("account").value= account;
 
-
-
+  document.getElementById("depositform").action="/deposit";
+   
+}
 function Withdrawal(){
 
     
@@ -61,12 +80,7 @@ function Withdrawal(){
 
   document.getElementById("withdrawalform").action="/withdrawal";
    
-}
-function Type(type) {
-
- document.getElementById("openbtn").disabled=false;
-  document.getElementById("type").value = type;
-}
+} 
 
 
 
