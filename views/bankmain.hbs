@@ -30,8 +30,7 @@
        {{#if body.cheque}}
               <option value="{{{body.cheque}}}">{{{body.cheque}}}</option>
         {{/if}}
-           {{!--      <option value="{{{body.cheque}}}">{{{body.cheque}}}</option> --}}
-             {{!--    <option value="{{{body.savings}}}">{{{body.savings}}}</option> --}}
+          
               {{#if body.savings}}
                <option value="{{{body.savings}}}">{{{body.savings}}}</option>
         {{/if}}
@@ -48,7 +47,7 @@
     <label for="withdrawal" >Withdrawal</label>
     </br></br>
         {{#if body.hasboth}}
-            {{!--   <option value="{{{body.cheque}}}">{{{body.cheque}}}</option> --}}
+         
             <input type="radio" id="openaccount" disabled="true"  name="account" value="openaccount">
              <label for="withdrawal"  >Open Account</label>
         {{else}}
@@ -59,8 +58,7 @@
       </br></br>
       {{{body.text}}}
          </br></br>
-  {{!--   <button  id="btn" class="mainbtn" onclick="sendtheForm()" >Submit</button>  
-    --}}
+ 
      <button  id="btn" class="mainbtn" type="submit" >Submit</button>  
    </form>
    </nav>

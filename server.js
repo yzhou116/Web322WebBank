@@ -49,29 +49,12 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
 const collections = client.db("mongodatabase").collection("web322");
 collections.find({}).toArray((err, result) => {
-  /*   console.log(result) */
- /*  console.log(collection)
-    console.log(result) */
+ 
   })
 
-//client.close();
+
 });
  
-/* const MongoClient = require("mongodb").MongoClient;							//	require MongoDB and create MongoClient object
-const url = "mongodb://localhost:27017/mongodatabase";
-const client =  MongoClient.connect(url);
-db = client.db('mongodatabase');
-/* mongoose.connect("mongodb+srv://yi_zhou:sd4888101@mongodbatlas.4anqo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true  });
-const db = mongoose.connection
-
-
-db.on('error', error => console.error(error))
-db.once('open', () => console.log('Connected to Database'))
-const col = db.db("mongodatabase")
-console.log(col) */
-
-
-
 var email
 
 var userinfo = {
@@ -88,66 +71,6 @@ var userinfo = {
 
 app.use('/verify', verifymodule)
 
-/* app.post("/verify",  (req,res)=>{
-   email = req.body.email;
-   var passcheck = false;
-    const password = req.body.password;
-    if(email != undefined && password != undefined){
-        if(email.trim().length == 0 || password.trim().length==0){
-            res.render("login",{body:"UserName or Password is empty"});
-            return;
-        }
-    }
-
-    for(var key in users){
-    
-      if(key == email && users[key] == password){
-        userinfo.email = key
-         passcheck = true;
-         break;
-      }else if(key==email && users[key] != password){
-        res.render("login",{body:"Wrong Password"})
-        return;
-      }else if(key!=email && users[key] == password){
-        res.render("login",{body:"Wrong Username"})
-        return;
-      }
-    }
-    if(!passcheck){
-     
-        res.render("login",{body:"Wrong UserName Or Password"})
-        return;
-      
-    }
-
-    if(passcheck == true){
-      req.session.user = email
-  client.db("mongodatabase").collection("web322").find({}).toArray((err, result) => {
-      
-        for(var key1 in result){
-          if(result[key1].Username ==req.session.user ){
-            userinfo.cheque = result[key1].Chequing
-            userinfo.savings = result[key1].Savings
-    
-            break
-           }
-        }
-        if(userinfo.cheque.length!=0 &&userinfo.savings.length!=0 ){
-          userinfo.hasboth = true
-        }else{
-          userinfo.hasboth = false
-        }
-        console.log(userinfo)
-      userinfo.text=''
-     res.render("bankmain",{body:userinfo});
-     return;
-      
-      })
-
-    }
-
-     
-}); */
 app.post("/checkchoice",(req,res)=>{
   if(req.session.user==null){
     res.render("login",{body:"Login First"})
@@ -158,11 +81,9 @@ app.post("/checkchoice",(req,res)=>{
   console.log(account)
   accounts = data.readData('./accounts.json')
 
- // console.log(req.body)
+
   var type = req.body.account;
-  /* console.log(type) */
  
-  //console.log(accountnumber)
   var balanceinfo = []
   for(var key in accounts){
     if(account == key){
@@ -177,81 +98,93 @@ app.post("/checkchoice",(req,res)=>{
  console.log(balanceinfo.number)
  console.log(balanceinfo.type)
  console.log(balanceinfo.amount)
-  if(type=='balance'){
-    if(balanceinfo.number==null){
-      userinfo.text = 'You do not have account'
-      userinfo.email = req.session.user
-      res.render('bankmain',{body:userinfo})
-      return
-    }
-   
-  //  var accountnumber = req.body.accountNumber
-  //  console.log(accountnumber)
- 
-    res.render('balance',{body: balanceinfo})
-    
-  }else if(type == 'deposit'){
-    if(balanceinfo.number==null){
-      userinfo.text = 'You do not have account'
-      userinfo.email = req.session.user
-      res.render('bankmain',{body:userinfo})
-      return
-    }
 
-      res.render('deposit',{body: balanceinfo})
-     
-   }else if(type == 'withdrawal'){
-    if(balanceinfo.number==null){
-      userinfo.text = 'You do not have account'
-      userinfo.email = req.session.user
-      res.render('bankmain',{body:userinfo})
-      return
-    }
-    res.render('witidraw',{body: balanceinfo})
+     client.db("mongodatabase").collection("web322").find({}).toArray((err, result) => {
+      userinfo.email = req.session.user;
+      for(var key1 in result){
+        if(result[key1].Username ==req.session.user ){
+          userinfo.cheque = result[key1].Chequing
+          userinfo.savings = result[key1].Savings
     
-   }else if(type=='openaccount'){
-    /* db.collection("web322") */client.db("mongodatabase").collection("web322").find({}).toArray((err, result) => {
-      /*   console.log(result) */
-        for(var key1 in result){
-          if(result[key1].Username ==req.body.email){
-            userinfo.cheque = result[key1].Chequing
-            userinfo.savings = result[key1].Savings
-           
-            break
-           }
-        }
-      })
+          break
+         }
+      }
+      if(userinfo.cheque.length!=0 &&userinfo.savings.length!=0 ){
+        userinfo.hasboth = true
+      }else{
+        userinfo.hasboth = false
+      }
+   
+    if(type!= 'balance'&& type!= 'openaccount'&& type!='withdrawal'&& type!= 'deposit' ){
+   
+      userinfo.text="Invalid Chioce"
+      res.render("bankmain",{body:userinfo});
+      return;
+    }else if(type=='balance'){
+      if(balanceinfo.number==null){
+        userinfo.text = 'You do not have account'
+     
+        res.render('bankmain',{body:userinfo})
+        return
+      }
   
+   
+      res.render('balance',{body: balanceinfo})
+      
+    }else if(type == 'deposit'){
+      if(balanceinfo.number==null){
+        userinfo.text = 'You do not have account'
+   
+        res.render('bankmain',{body:userinfo})
+        return
+      }
+  
+        res.render('deposit',{body: balanceinfo})
+       
+     }else if(type == 'withdrawal'){
+      if(balanceinfo.number==null){
+        userinfo.text = 'You do not have account'
+   
+        res.render('bankmain',{body:userinfo})
+        return
+      }
+      res.render('witidraw',{body: balanceinfo})
+      
+     }else{
       balanceinfo.hasnone= false
       balanceinfo.cheque= false
       balanceinfo.hassavings= false
-      if(userinfo.cheque.length == 0&&userinfo.savings.length==0){
+
+      if(userinfo.cheque=== ''&&userinfo.savings===''){
+        console.log(userinfo.cheque+ 'NOne' + userinfo.savings)
         balanceinfo.hasnone = true
         console.log(balanceinfo.hasnone)
         res.render('openaccount',{body: balanceinfo})
+        return;
        
-      }else if(userinfo.cheque.length!=0){
+      }else if(userinfo.cheque===''){
+        console.log(userinfo.cheque+ 'cheque' )
         balanceinfo.hassavings = true
         console.log(balanceinfo.hascheque)
         res.render('openaccount',{body: balanceinfo})
+        return;
      
       }else{
+        console.log(userinfo.savings+ 'savings' )
         balanceinfo.hascheque = true
         console.log(balanceinfo.hassavings)
       }
        res.render('openaccount',{body: balanceinfo})
-   }
-   if(type!= 'balance'&& type!= 'openaccount'&& type!='withdrawal'&& type!= 'deposit' ){
-    userinfo.text="Invalid Chioce"
-    res.render('bankmain',{body: userinfo})
-   }
-   console.log("finish")
+      return;
+     }
+     
    
- /*   else{
-     userinfo.text="Invalid Chioce"
-     res.render('bankmain',{body: userinfo})
-     return;
-   }  */
+    
+    })
+
+
+   
+ 
 })
 
 
@@ -298,11 +231,11 @@ app.post("/deposit",(req,res)=>{
               amount: info[key].accountBalance,
               text: ""
             }
-           /*  res.render("bankmain",{body:balanceinfo}) */
+      
             info[key].accountBalance  = amount.toFixed(2)
             info[key].accountBalance  = parseFloat(info[key].accountBalance)
             var newFile = JSON.stringify(info,null,4)
-            console.log('dddd')
+          //  console.log('dddd')
             console.log(newFile)
             fs.writeFile("./accounts.json", newFile,(err)=>{
               userinfo.account = ""
@@ -387,7 +320,7 @@ app.post("/withdrawal",(req,res)=>{
 })
 /* open account */
 
-app.post("/account", (req,res)=>{
+ app.post("/account", (req,res)=>{
   if(req.session.user==null){
     res.render("login",{body:"Login First"})
     return
@@ -399,7 +332,7 @@ app.post("/account", (req,res)=>{
     "accountBalance" : 0
   }
   var newOne = ""
- 
+
   fs.readFile("./accounts.json","utf-8", (err,accountinfo)=>{
   var info= JSON.parse(accountinfo)
    var num = +info.lastID +1
@@ -418,24 +351,59 @@ app.post("/account", (req,res)=>{
     })
     if(mtype=="Savings"){
     client.db("mongodatabase").collection("web322").updateOne({Username:req.session.user}, {$set: {"Savings":newOne}})
-      userinfo.text = mtype + " " + "Account" + "#"+newOne + " Created"
+    /*   userinfo.text = mtype + " " + "Account" + "#"+newOne + " Created"
       userinfo.savings = newOne
       userinfo.hassavings = true
       if(userinfo.cheque.length!=0){
         userinfo.hasboth= true
       }
-      res.render("bankmain",{body:userinfo}) 
+      res.render("bankmain",{body:userinfo})  */
      }else{
      client.db("mongodatabase").collection("web322").updateOne({Username:req.session.user}, {$set: {"Chequing":newOne}})
-      userinfo.text = mtype + " " + "Account" + "#"+newOne + " Created"
+    /*   userinfo.text = mtype + " " + "Account" + "#"+newOne + " Created"
       userinfo.cheque = newOne
       userinfo.hassavings = true
       if(userinfo.savings.length!=0){
         userinfo.hasboth= true
       }
-      res.render("bankmain",{body:userinfo}) 
+      res.render("bankmain",{body:userinfo})  */
      }
+     client.db("mongodatabase").collection("web322").find({Username:req.session.user}).toArray((err, result) => {
+      console.log(result)
+
+      userinfo.cheque = result[0].Chequing
+      userinfo.savings = result[0].Savings
+      console.log(userinfo.cheque+ '----userinfo.cheque')
+      console.log(userinfo.savings+ '----userinfo.savings')
+      if(mtype=="Savings"){
+        userinfo.savings = newOne
+      }else{
+        userinfo.cheque=newOne
+      }
+  
+      if(userinfo.cheque!='' &&userinfo.savings!='' ){
+        userinfo.hasboth = true
+      }else{
+        userinfo.hasboth = false
+      }
+      console.log(userinfo)
+   userinfo.text=mtype  + " " + "Account" + " # "+newOne + " Created"
+   res.render("bankmain",{body:userinfo});
+   return;
+    
+     
+
+    
+
   })
+
+  })
+ 
+
+
+  
+  
+
 
   
 })
@@ -444,10 +412,31 @@ app.get("/cancel", (req,res)=>{
     res.render("login",{body:"Login First"})
     return
   }
-
-  userinfo.account = ""
+  userinfo.email=req.session.user
+  console.log(userinfo.email)
+  client.db("mongodatabase").collection("web322").find({}).toArray((err, result) => {
+       
+    for(var key1 in result){
+      if(result[key1].Username ==req.session.user ){
+        userinfo.cheque = result[key1].Chequing
+        userinfo.savings = result[key1].Savings
+  
+        break
+       }
+    }
+    if(userinfo.cheque.length!=0 &&userinfo.savings.length!=0 ){
+      userinfo.hasboth = true
+    }else{
+      userinfo.hasboth = false
+    }
+    console.log(userinfo)
   userinfo.text=''
-  res.render('bankmain',{body:userinfo});
+ res.render("bankmain",{body:userinfo});
+ return;
+  
+  })
+
+
 });
 
 app.get('/', (req,res)=>{
@@ -457,6 +446,8 @@ app.get('/', (req,res)=>{
 app.post("/logout",(req,res)=>{
   req.session.user = null
   userinfo.text=''
+  userinfo = {}
+
   res.redirect("/")
 
   });

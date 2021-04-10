@@ -26,17 +26,7 @@ app.engine("hbs", exphbs({
     }));
 app.set("view engine", "hbs");
 app.use(express.static('public'));
-/* app.use(session({
 
-  secret: "weird sheep",
-
-  resave: false,
-
-  saveUninitialized: true,
-
-  cookie: {user:"default",maxAge: 14*24*60*60*1000}
-}));
- */
 app.use(session({
 
   cookieName: 'session', 
@@ -50,12 +40,9 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
 const collections = client.db("mongodatabase").collection("web322");
 collections.find({}).toArray((err, result) => {
-  /*   console.log(result) */
- /*  console.log(collection)
-    console.log(result) */
+
   })
 
-//client.close();
 });
 
 
@@ -77,8 +64,7 @@ var userinfo = {
  
     email = req.body.email;
     var passcheck = false;
-   /*  console.log(users)
-    console.log(accounts) */
+  
      const password = req.body.password;
      if(email != undefined && password != undefined){
          if(email.trim().length == 0 || password.trim().length==0){
@@ -86,10 +72,9 @@ var userinfo = {
              return;
          }
      }
-  /*    let found = users.find(user => user.email === req.body.email&&user[email]===password) */
+
      for(var key in users){
-      /*  console.log(key)
-       console.log(users[key]) */
+     
        if(key == email && users[key] == password){
          userinfo.email = key
           passcheck = true;
@@ -132,10 +117,7 @@ var userinfo = {
       return;
        
        })
- /*       db.close(); */
- 
- 
-  /*  console.log(userinfo.hasboth) */
+
  
      }   
  });
