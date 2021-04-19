@@ -44,7 +44,7 @@ app.use(session({
 	activeDuration: 1000 * 60 * 5,
 }));
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://yi_zhou:sd4888101@mongodbatlas.4anqo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = "mongodb+srv://YourUserName:YourPassword@mongodbatlas.4anqo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
 const collections = client.db("mongodatabase").collection("web322");
